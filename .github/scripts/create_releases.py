@@ -98,9 +98,13 @@ def format_diffs(repo: str, cpath1: str, cpath2: str, percentage: str) -> str:
                         f"- [{new}](https://github.com/{repo}/blob/{cpath2}/{new}) (was [{old}](https://github.com/{repo}/blob/{cpath1}/{old}))"
                     )
                 elif change == "Deleted":
-                    result.append(f"- [{f}](https://github.com/{repo}/blob/{cpath1}/{f})")
+                    result.append(
+                        f"- [{f}](https://github.com/{repo}/blob/{cpath1}/{f})"
+                    )
                 else:
-                    result.append(f"- [{f}](https://github.com/{repo}/blob/{cpath2}/{f})")
+                    result.append(
+                        f"- [{f}](https://github.com/{repo}/blob/{cpath2}/{f})"
+                    )
 
     return "\n".join(result)
 
@@ -119,7 +123,9 @@ def get_repo(repo: str):
     return g.get_repo(repo)
 
 
-def create_releases(repo_name: str, prior_tag: str, release_tag: str, create: bool, percentage: str):
+def create_releases(
+    repo_name: str, prior_tag: str, release_tag: str, create: bool, percentage: str
+):
     commits, _ = run_cmd(f"{GIT_EXE} rev-list HEAD")
     # last will be first
     # need this to compare the very first tag
@@ -147,7 +153,9 @@ def create_releases(repo_name: str, prior_tag: str, release_tag: str, create: bo
         prior_tag = tags[n]
         release_tag = tags[n + 1]
 
-        logger.info("creating release text for tag %s (diff to %s)", release_tag, prior_tag)
+        logger.info(
+            "creating release text for tag %s (diff to %s)", release_tag, prior_tag
+        )
         fdiffs = format_diffs(repo_name, prior_tag, release_tag, percentage)
         if create:
             if not repo:
@@ -215,7 +223,9 @@ def main(argv=None):
     logging.getLogger().setLevel(log_level)
 
     try:
-        create_releases(args.repo, args.prior_tag, args.release_tag, args.create, args.percentage)
+        create_releases(
+            args.repo, args.prior_tag, args.release_tag, args.create, args.percentage
+        )
     except ValueError as e:
         logger.error("%s", e)
         return -1

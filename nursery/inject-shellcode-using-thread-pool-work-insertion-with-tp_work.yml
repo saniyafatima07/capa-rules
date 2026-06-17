@@ -1,7 +1,7 @@
 rule:
   meta:
     name: inject shellcode using thread pool work insertion with TP_WORK
-    namespace: host-interaction/process/inject
+    namespace: nursery/host-interaction/process/inject
     authors:
       - still@teamt5.org
     description: Detect APIs related to injection techniques that injects malicious thread pool context into the target process (TP_WORK)
