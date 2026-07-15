@@ -26,7 +26,10 @@ rule:
       - api: RstrtMgr.RmShutdown
       - and:
         - os: linux
-        - api: exit_group
+        - or:
+          - api: exit_group
+          - api: killall
+          - api: pkill
       - and:
         - optional:
           - match: open process
